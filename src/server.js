@@ -27,8 +27,8 @@ export const setupServer = () => {
         message: 'Successfully fetch contacts!',
         data: contacts,
       });
-    } catch (err) {
-      next(err);
+    } catch (error) {
+      next(error);
     }
   });
 
@@ -50,8 +50,8 @@ export const setupServer = () => {
         message: `Successfully fetch contact with id ${contactId}!`,
         data: contact,
       });
-    } catch (err) {
-      next(err);
+    } catch (error) {
+      next(error);
     }
   });
 
@@ -62,8 +62,8 @@ export const setupServer = () => {
     });
   });
 
-  app.use((err, req, res, next) => {
-    req.log.error(err);
+  app.use((error, req, res, next) => {
+    req.log.error(error);
 
     res.status(500).json({
       status: 500,
