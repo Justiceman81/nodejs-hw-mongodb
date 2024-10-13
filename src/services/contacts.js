@@ -5,29 +5,22 @@ export const getAllContacts = () => {
 };
 
 export const getContactById = (contactId) => {
-  return ContactsCollection.findById(contactId);
+  return ContactsCollection.findById({ _id: contactId });
 };
 
 export const createContact = (contact) => {
   return ContactsCollection.create(contact);
 };
 
-export const changeContactFavourite = async (
-  contactId,
-  payload,
-  options = {},
-) => {
+export const changeContactFavourite = async (contactId, payload) => {
   const updatedContact = await ContactsCollection.findOneAndUpdate(
     contactId,
     { _id: contactId },
     payload,
     {
       new: true,
-      runValidators: true,
-      ...options,
     },
   );
-
   return updatedContact;
 };
 
