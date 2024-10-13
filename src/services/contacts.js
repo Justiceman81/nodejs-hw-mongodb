@@ -12,14 +12,25 @@ export const createContact = (contact) => {
   return ContactsCollection.create(contact);
 };
 
-export const changeContactFavourite = (contactId, isFavourite) => {
-  return ContactsCollection.findByIdAndUpdate(
+export const changeContactFavourite = async (
+  contactId,
+  payload,
+  options = {},
+) => {
+  const updatedContact = await ContactsCollection.findOneAndUpdate(
     contactId,
-    { isFavourite },
-    { new: true },
+    { _id: contactId },
+    payload,
+    {
+      new: true,
+      runValidators: true,
+      ...options,
+    },
   );
+
+  return updatedContact;
 };
 
-export const deleteContact = (contactId) => {
-  return ContactsCollection.findByIdAndDelete(contactId);
+export const deleteContact = async (contactId) => {
+  return await ContactsCollection.findOneAndDelete({ _id: contactId });
 };
