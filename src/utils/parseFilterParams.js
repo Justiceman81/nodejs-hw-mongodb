@@ -1,7 +1,8 @@
 const parseType = (contactType) => {
   const isString = typeof contactType === 'string';
   if (!isString) return;
-  const isKnownType = ['work', 'home', 'personal'].includes(contactType);
+  const isKnownType = (contactType) =>
+    ['work', 'home', 'personal'].includes(contactType);
   if (isKnownType(contactType)) return contactType;
 };
 

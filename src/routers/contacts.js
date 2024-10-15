@@ -33,6 +33,7 @@ router.post(
 router.patch(
   '/contacts/:contactId',
   jsonParser,
+  isValidId,
   validateBody(updateContactSchema),
   ctrlWrapper(changeContactFavouriteController),
 );
