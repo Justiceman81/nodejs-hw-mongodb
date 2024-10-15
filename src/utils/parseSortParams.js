@@ -12,8 +12,9 @@ const parseSortBy = (sortBy) => {
     '_id',
     'name',
     'email',
-    'phone',
-    'favorite',
+    'phoneNumber',
+    'isFavorite',
+    'contactType',
     'createdAt',
     'updatedAt',
   ];
