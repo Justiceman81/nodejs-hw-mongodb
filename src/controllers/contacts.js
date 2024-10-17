@@ -10,7 +10,6 @@ import {
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseSortParams } from '../utils/parseSortParams.js';
 import { parseFilterParams } from '../utils/parseFilterParams.js';
-import { isValidObjectId } from 'mongoose';
 
 export const getAllContactsController = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
@@ -32,9 +31,7 @@ export const getAllContactsController = async (req, res) => {
 
 export const getContactByIdController = async (req, res, next) => {
   const { contactId } = req.params;
-  if (!isValidObjectId(contactId)) {
-    return next(createHttpError(502, 'Bad Gateway!'));
-  }
+
   const contact = await getContactById(contactId);
   if (!contact) {
     return next(createHttpError(404, 'Contact not found!'));
