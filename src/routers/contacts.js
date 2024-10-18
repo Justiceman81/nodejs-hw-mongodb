@@ -32,8 +32,8 @@ router.post(
 );
 router.patch(
   '/contacts/:contactId',
-  jsonParser,
   isValidId,
+  jsonParser,
   validateBody(updateContactSchema),
   ctrlWrapper(changeContactFavouriteController),
 );

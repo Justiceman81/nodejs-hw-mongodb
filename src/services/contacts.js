@@ -47,12 +47,12 @@ export const getAllContacts = async ({
   return { data: contacts, ...paginationData };
 };
 
-export const getContactById = (contactId) => {
-  return ContactsCollection.findById(contactId);
+export const getContactById = async (contactId) => {
+  return await ContactsCollection.findById(contactId);
 };
 
-export const createContact = (contact) => {
-  return ContactsCollection.create(contact);
+export const createContact = async (contact) => {
+  return await ContactsCollection.create(contact);
 };
 
 export const changeContactFavourite = async (contactId, payload) => {
