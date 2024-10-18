@@ -4,7 +4,7 @@ import { isValidObjectId } from 'mongoose';
 export const isValidId = async (req, res, next) => {
   const { contactId } = req.params;
   if (!isValidObjectId(contactId)) {
-    next(createHttpError(400, 'Bad Request'));
-    return;
+    return next(createHttpError(400, 'Bad Request'));
   }
+  next();
 };
