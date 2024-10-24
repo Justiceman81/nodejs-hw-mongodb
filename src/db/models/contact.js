@@ -23,7 +23,12 @@ const contactsSchema = new mongoose.Schema(
       enum: ['work', 'home', 'personal'],
       default: 'personal',
     },
-    parentId: { type: mongoose.Schema.Types.ObjectId, ref: 'users', require: true },
+    parentId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'users',
+      require: true,
+    },
+    photo: { type: String },
   },
   {
     timestamps: true,
