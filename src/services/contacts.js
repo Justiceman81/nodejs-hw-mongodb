@@ -47,20 +47,24 @@ export const getAllContacts = async ({
   return { data: contacts, ...paginationData };
 };
 
-export const getContactById = (contactId) => {
-  return ContactsCollection.findById(contactId);
+export const getContactById = (contactId, userId) => {
+  return ContactsCollection.findOne({ _id: contactId, userId });
 };
 
 export const createContact = (contact) => {
   return ContactsCollection.create(contact);
 };
 
-export const changeContactFavourite = async (contactId, payload) => {
-  return ContactsCollection.findOneAndUpdate({ _id: contactId }, payload, {
-    new: true,
-  });
+export const changeContactFavourite = async (contactId, userId, payload) => {
+  return ContactsCollection.findOneAndUpdate(
+    { _id: contactId, userId },
+    payload,
+    {
+      new: true,
+    },
+  );
 };
 
-export const deleteContact = async (contactId) => {
-  return ContactsCollection.findOneAndDelete({ _id: contactId });
+export const deleteContact = async (contactId, userId) => {
+  return ContactsCollection.findOneAndDelete({ _id: contactId, userId });
 };
