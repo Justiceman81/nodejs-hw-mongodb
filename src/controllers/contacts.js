@@ -31,8 +31,8 @@ export const getAllContactsController = async (req, res) => {
 };
 
 export const getContactByIdController = async (req, res, next) => {
-  const { contactId } = req.params;
   const { _id: userId } = req.user;
+  const { contactId } = req.params;
 
   const contact = await getContactById(contactId, userId);
   if (!contact) {
@@ -47,17 +47,21 @@ export const getContactByIdController = async (req, res, next) => {
 
 export const createContactController = async (req, res) => {
   const { _id: userId } = req.user;
-  const newContact = await createContact(req.body, userId);
+  const newContact = { ...req.body, userId };
+
+  const contact = await createContact(newContact);
+
   res.status(201).json({
     status: 201,
     message: 'Successfully created contact!',
-    data: newContact,
+    data: contact,
   });
 };
 
 export const changeContactFavouriteController = async (req, res, next) => {
   const { contactId } = req.params;
   const { _id: userId } = req.user;
+
   const updatedContact = await changeContactFavourite(
     contactId,
     userId,
@@ -76,6 +80,7 @@ export const changeContactFavouriteController = async (req, res, next) => {
 export const deleteContactController = async (req, res, next) => {
   const { contactId } = req.params;
   const { _id: userId } = req.user;
+
   const deletedContact = await deleteContact(contactId, userId);
   if (!deletedContact) {
     return next(createHttpError(404, 'Contact not found!'));
