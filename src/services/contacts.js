@@ -12,7 +12,7 @@ export const getAllContacts = async ({
   const limit = perPage;
   const skip = (page - 1) * perPage;
 
-  const contactsQuery = ContactsCollection.find();
+  const contactsQuery = ContactsCollection.find(filter);
   if (filter.contactType) {
     contactsQuery.where('contactType').equals(filter.contactType);
   }
@@ -35,7 +35,7 @@ export const getAllContacts = async ({
   // ******************** Pagination **********************
 
   const [contactsCount, contacts] = await Promise.all([
-    ContactsCollection.find().merge(contactsQuery).countDocuments(),
+    ContactsCollection.find(filter).merge(contactsQuery).countDocuments(),
     contactsQuery
       .skip(skip)
       .limit(limit)
@@ -47,16 +47,16 @@ export const getAllContacts = async ({
   return { data: contacts, ...paginationData };
 };
 
-export const getContactById = (contactId, userId) => {
-  return ContactsCollection.findOne({ _id: contactId, userId });
+export const getContactById = async (contactId, userId) => {
+  return await ContactsCollection.findOne({ _id: contactId, userId });
 };
 
-export const createContact = (contact) => {
-  return ContactsCollection.create(contact);
+export const createContact = async (contact) => {
+  return await ContactsCollection.create(contact);
 };
 
 export const changeContactFavourite = async (contactId, userId, payload) => {
-  return ContactsCollection.findOneAndUpdate(
+  return await ContactsCollection.findOneAndUpdate(
     { _id: contactId, userId },
     payload,
     {
@@ -66,5 +66,5 @@ export const changeContactFavourite = async (contactId, userId, payload) => {
 };
 
 export const deleteContact = async (contactId, userId) => {
-  return ContactsCollection.findOneAndDelete({ _id: contactId, userId });
+  return await ContactsCollection.findOneAndDelete({ _id: contactId, userId });
 };
