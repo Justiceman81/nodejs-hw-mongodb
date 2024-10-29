@@ -3,12 +3,15 @@ import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 import { SORT_ORDER } from '../constants/index.js';
 
 export const getAllContacts = async ({
+  userId,
   page = 1,
   perPage = 10,
   sortOrder = SORT_ORDER.ASC,
   sortBy = '_id',
   filter = {},
 }) => {
+  filter.userId = userId;
+
   const limit = perPage;
   const skip = (page - 1) * perPage;
 
@@ -17,7 +20,7 @@ export const getAllContacts = async ({
     contactsQuery.where('contactType').equals(filter.contactType);
   }
 
-  if (filter.isFavourite === true || filter.isFavourite === false) {
+  if (filter.isFavourite !== undefined) {
     contactsQuery.where('isFavourite').equals(filter.isFavourite);
   }
 
@@ -35,7 +38,7 @@ export const getAllContacts = async ({
   // ******************** Pagination **********************
 
   const [contactsCount, contacts] = await Promise.all([
-    ContactsCollection.find(filter).merge(contactsQuery).countDocuments(),
+    ContactsCollection.find(filter).countDocuments(),
     contactsQuery
       .skip(skip)
       .limit(limit)
