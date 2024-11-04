@@ -27,6 +27,12 @@ const contactsSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'users',
       required: true,
+<<<<<<< Updated upstream
+=======
+    },
+    photo: {
+      type: String,
+>>>>>>> Stashed changes
     },
   },
   {

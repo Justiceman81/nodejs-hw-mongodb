@@ -10,6 +10,9 @@ import {
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseSortParams } from '../utils/parseSortParams.js';
 import { parseFilterParams } from '../utils/parseFilterParams.js';
+import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
+import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
+import { env } from '../utils/env.js';
 
 export const getAllContactsController = async (req, res) => {
   const { _id: userId } = req.user;
@@ -47,10 +50,32 @@ export const getContactByIdController = async (req, res, next) => {
 
 export const createContactController = async (req, res) => {
   const { _id: userId } = req.user;
+<<<<<<< Updated upstream
   const newContact = { ...req.body, userId };
 
   const contact = await createContact(newContact);
 
+=======
+  const photo = req.file;
+
+  let photoUrl;
+
+  if (photo) {
+    if (env('ENABLE_CLOUDINARY') === 'true') {
+      photoUrl = await saveFileToCloudinary(photo);
+    } else {
+      photoUrl = await saveFileToUploadDir(photo);
+    }
+  }
+
+  const result = {
+    ...req.body,
+    userId,
+    photoUrl,
+  };
+
+  const newContact = await createContact(result);
+>>>>>>> Stashed changes
   res.status(201).json({
     status: 201,
     message: 'Successfully created contact!',
@@ -61,11 +86,33 @@ export const createContactController = async (req, res) => {
 export const changeContactFavouriteController = async (req, res, next) => {
   const { contactId } = req.params;
   const { _id: userId } = req.user;
+<<<<<<< Updated upstream
+=======
+  const photo = req.file;
+
+  let photoUrl;
+
+  if (photo) {
+    if (env('ENABLE_CLOUDINARY') === 'true') {
+      photoUrl = await saveFileToCloudinary(photo);
+    } else {
+      photoUrl = await saveFileToUploadDir(photo);
+    }
+  }
+
+  const updateContact = {
+    ...req.body,
+  };
+
+  if (photoUrl) {
+    updateContact.photo = photoUrl;
+  }
+>>>>>>> Stashed changes
 
   const updatedContact = await changeContactFavourite(
     contactId,
     userId,
-    req.body,
+    updateContact,
   );
   if (!updatedContact) {
     return next(createHttpError(404, 'Contact not found!'));
