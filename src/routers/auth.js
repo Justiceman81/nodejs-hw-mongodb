@@ -27,4 +27,19 @@ router.post('/logout', ctrlWrapper(logoutUserController));
 
 router.post('/refresh', ctrlWrapper(refreshUserSessionController));
 
+<<<<<<< Updated upstream
+=======
+router.post(
+  '/send-reset-email',
+  validateBody(requestResetEmailSchema),
+  ctrlWrapper(requestResetEmailController),
+);
+
+router.post(
+  '/reset-password',
+  validateBody(resetPasswordSchema),
+  ctrlWrapper(resetPasswordController),
+);
+
+>>>>>>> Stashed changes
 export default router;
