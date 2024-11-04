@@ -50,12 +50,6 @@ export const getContactByIdController = async (req, res, next) => {
 
 export const createContactController = async (req, res) => {
   const { _id: userId } = req.user;
-<<<<<<< Updated upstream
-  const newContact = { ...req.body, userId };
-
-  const contact = await createContact(newContact);
-
-=======
   const photo = req.file;
 
   let photoUrl;
@@ -71,23 +65,20 @@ export const createContactController = async (req, res) => {
   const result = {
     ...req.body,
     userId,
-    photoUrl,
+    photo: photoUrl,
   };
 
   const newContact = await createContact(result);
->>>>>>> Stashed changes
   res.status(201).json({
     status: 201,
     message: 'Successfully created contact!',
-    data: contact,
+    data: newContact,
   });
 };
 
 export const changeContactFavouriteController = async (req, res, next) => {
   const { contactId } = req.params;
   const { _id: userId } = req.user;
-<<<<<<< Updated upstream
-=======
   const photo = req.file;
 
   let photoUrl;
@@ -107,7 +98,6 @@ export const changeContactFavouriteController = async (req, res, next) => {
   if (photoUrl) {
     updateContact.photo = photoUrl;
   }
->>>>>>> Stashed changes
 
   const updatedContact = await changeContactFavourite(
     contactId,
