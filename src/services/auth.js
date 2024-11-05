@@ -3,7 +3,7 @@ import createHttpError from 'http-errors';
 import jwt from 'jsonwebtoken';
 import fs from 'node:fs/promises';
 import handlebars from 'handlebars';
-import path from 'path';
+import path from 'node:path';
 import { randomBytes } from 'crypto';
 import { env } from '../utils/env.js';
 import { sendEmail } from '../utils/sendMail.js';
@@ -124,7 +124,6 @@ export const requestResetToken = async (email) => {
   ).toString();
 
   const template = handlebars.compile(templateSource);
-
   const html = template({
     name: user.name,
     link: `${env('APP_DOMAIN')}/reset-password?token=${resetToken}`,

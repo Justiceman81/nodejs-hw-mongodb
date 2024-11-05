@@ -77,8 +77,8 @@ export const createContactController = async (req, res) => {
 };
 
 export const changeContactFavouriteController = async (req, res, next) => {
-  const { contactId } = req.params;
   const { _id: userId } = req.user;
+  const { contactId } = req.params;
   const photo = req.file;
 
   let photoUrl;
