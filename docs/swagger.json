@@ -11,7 +11,7 @@
   },
   "servers": [
     {
-      "url": "https://nodejs-hw-mongodb-6-rc89.onrender.com"
+      "url": "https://nodejs-hw-mongodb-5-gdhy.onrender.com"
     }
   ],
   "tags": [
@@ -227,11 +227,6 @@
                       "personal"
                     ],
                     "example": "personal"
-                  },
-                  "userId": {
-                    "description": "User's id",
-                    "type": "string",
-                    "example": "65e4decdd286b30065d54af9"
                   },
                   "photo": {
                     "description": "Contact's photo",
