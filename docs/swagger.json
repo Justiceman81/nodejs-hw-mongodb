@@ -939,7 +939,8 @@
           },
           "email": {
             "description": "Contact's email",
-            "type": "string"
+            "type": "string",
+            "example": "john_doe@gmail.com"
           },
           "isFavourite": {
             "description": "Contact's status",
